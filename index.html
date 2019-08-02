@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="application/javascript" src="./qrcode.js">//二维码识别js，已修改为返回16进制，Unicode</script>
+    <script type="application/javascript" src="./deal.js">//编码格式转换js</script>
+    <script type="application/javascript" src="./DS.js">//半角全角转换js</script>
+</head>
+
+<body>
+    <input type="file" id="img">
+    <button onclick="readQrcode()">识别二维码</button>
+    <script type="application/javascript">
+        function readQrcode() {
+            var objImg = document.getElementById("img").files[0];
+            var url = getObjectURL(objImg);
+            console.log(url);
+            console.log("filename = " + objImg.name);
+            getUrl(url);
+            function getUrl(url) {
+                qrcode.decode(url);
+                qrcode.callback2 = function (imgMsg, url) {
+                    // console.log((imgMsg));//此处返回已经修改的qrcode.js的16进制结果
+                    console.log(toSBC(urlDecode(imgMsg)));                    
+                }
+            }
+        }
+        function getObjectURL(file) {
+            var url = null;
+            if (window.createObjectURL != undefined) {
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) { // mozilla(firefox)  
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) { // webkit or chrome  
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+    </script>
+</body>
+
+</html>
