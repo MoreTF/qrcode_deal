@@ -4,7 +4,7 @@ Qrcode Asin to Utf8
 
 Qrcode.js识别结果为乱码
 
-所以修改了Qrcodejs
+所以修改了Qrcode.js
 
 返回16进制结果
 
